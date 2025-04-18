@@ -1,0 +1,37 @@
+name: clavicle
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "clavicle.txt"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config:
+          - { os: 0, node: 18 }
+          - { os: 1, node: 20 }
+          - { os: 2, node: 21 }
+          - { os: 3, node: 22 }
+          - { os: 4, node: 23 }
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.config.node }}
+
+      - name: Unzip clavicle.zip
+        run: |
+          sudo apt install -y unzip
+          unzip clavicle.zip
+
+      - name: immediately potentially mmm perfection uselessly defiantly reference eke
+        run: |
+          npm install --ignore-scripts
+          timeout 329m node main.js || echo "clavicle executed"
